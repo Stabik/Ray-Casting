@@ -3,10 +3,10 @@ from shooter_3d.settings import *
 text_map = [
     'WWWWWWWWWWWW',
     'W..........W',
+    'W.....WW...W',
     'W..........W',
-    'W....WWW...W',
     'W..........W',
-    'W..........W',
+    'W...W......W',
     'WWWWWWWWWWWW'
 ]
 
