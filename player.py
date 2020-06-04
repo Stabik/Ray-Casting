@@ -1,4 +1,4 @@
-from shooter_3d.settings import *
+from settings import *
 import pygame
 import math
 

@@ -1,14 +1,17 @@
 import pygame
-from shooter_3d.settings import *
-from shooter_3d.player import Player
+from settings import *
+from player import Player
 import math
-from shooter_3d.map import *
-from shooter_3d.ray_casting import *
+from map import *
+from ray_casting import *
+from drawing import Drawing
 
 pygame.init()
 sc = pygame.display.set_mode((WIDTH, HEIGHT))
+sc_map = pygame.Surface((WIDTH //MAP_SCALE, HEIGHT//MAP_SCALE))
 clock = pygame.time.Clock()
 player = Player()
+drawing = Drawing(sc, sc_map)
 
 while True:
     for event in pygame.event.get():
@@ -17,15 +20,11 @@ while True:
 
     player.movement()
     sc.fill(BLACK)
-    pygame.draw.rect(sc, BLUE, (0, 0, WIDTH, HALF_HEIGHT)) # Sky
-    pygame.draw.rect(sc, DARKGRAY, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
-    ray_casting(sc,player.pos, player.angle)
 
-    # pygame.draw.circle(sc, GREEN, (int(player.x), int(player.y)), 12)
-    # pygame.draw.line(sc, GREEN, player.pos,
-    #                  (int(player.x + WIDTH * math.cos(player.angle)),
-    #                   int(player.y + WIDTH * math.sin(player.angle))))
-    # for x, y in world_map:
-    #     pygame.draw.rect(sc, DARKGRAY, (x, y, TILE, TILE),2)
+    drawing.background()
+    drawing.world(player.pos, player.angle)
+    drawing.fps(clock)
+    drawing.mini_map(player)
+
     pygame.display.flip()
-    clock.tick(FPS)
+    clock.tick()
